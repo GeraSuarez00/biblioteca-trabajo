@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+  <div style="position: absolute; width: 400px;height:100px; left: 36px; top: 80px;"> 
+    <div align ="center" style="background: rgb(223, 78, 78);padding: 15px; border-radius: 10%; font-family:cursive; font-size:110%;font-weight:bold">
+        Mostrar la cantidad de libros prestados en un rango de fecha determinado
+         <br>
+        
+         <br>
+         <div style="padding: 5px">
+            <h5 style="color: blanchedalmond; padding:0px;">Ingrese el rango de fechas del préstamo:</h5>
+             <label for="fecha1">Fecha Inicial:</label>
+             <input type="date" name="fecha1" required>
+         </div>
+         <div style="padding: 10px"> 
+             <label for="fecha2">Fecha Final:</label>
+             <input type="date" name="fecha2" required>
+         </div>
+         <button style="padding:5px" class="btn btn-dark" type="submit">
+            Consultar
+        </button>
+    </div>
+  </div>
+</form>
+  <div style="position: absolute; width: 700px;left: 450px;top: 80px;"> 
+    {% if context.consulta2.ejemplar__count %}
+    <table style="opacity:85%"class="table table-danger table-hover">
+        <thead>
+        <tr class="table-dark" >
+            <th scope="col">Fecha inicial</th>
+            <th scope="col">Fecha Final</th>
+            <th scope="col">Cantidad Total</th>
+        </tr>
+        </thead>
+        <tbody> 
+            <tr>
+            <td>{{ context.fecha1}}</td>
+            <td>{{ context.fecha2}}</td>
+            <td>{{ context.consulta2.ejemplar__count }}</td>
+        </tr>
+        </tbody>
+    </table>
+    {% else %}
+        <div align ="center" style="background: rgb(105, 9, 9);padding:15px; margin-top:80px;margin-left:100px;width:220px;border-radius: 20%; color:white ;font-family:cursive; font-size:110%;font-weight:bold">
+            Aun no has ingresado el rango de fechas o No hay registros para la fecha ingresada
+        </div>
+    {%endif%}
+        </tbody>
+    </table>
+  </div>
+{% endblock  %}

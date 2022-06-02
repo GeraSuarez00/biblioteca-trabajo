@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<h1 class="pull-right">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4" style="padding:10px">
+            <h4><i>Listado de Usuarios</i></h4>
+        </div>
+       <div class="col-4">
+            <a href="{% url 'ejemplares:usuariosCreate' %}" class="btn btn-dark"> Adicionar <i class="fa-solid fa-circle-plus"></i></a>
+        </div>
+    </div>
+</h1>
+{% if ejemplares %}
+<table class="table table-danger table-hover" style="opacity:75%">
+    <thead>
+      <tr class="table-dark">
+        <th scope="col">Id</th>
+        <th scope="col">Nombres</th>
+        <th scope="col">Apellidos</th>
+        <th scope="col">Dirección</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for usuarios in ejemplares %}
+        <tr>
+            <td>{{ usuarios.id}}</td>
+            <td>{{ usuarios.nombres}}</td>
+            <td>{{ usuarios.apellidos}}</td>
+            <td>{{ usuarios.dirección}}</td>
+            <td>{{ usuarios.teléfono}}</td>
+            <td>
+            <a href="{% url 'ejemplares:usuariosEdit' usuarios.id %}" class="btn btn-dark btn-xs">
+                <i class="fa-solid fa-pen"></i>
+            </a>
+            <a href="{% url 'ejemplares:usuariosEliminar' usuarios.id %}" class="btn btn-danger btn-xs">
+                <i class="fa-solid fa-trash-can"></i>
+            </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% else %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-4">
+        <div class="card text-black" style="background-color:rgb(255, 116, 116)">
+            <h4 class="card-title" style="text-align: center"> ¡Lista Vacía!: No existen registros</h4>
+        </div> 
+    </div>
+</div>
+{%endif%}
+    
+    </tbody>
+  </table>
+{% endblock %}

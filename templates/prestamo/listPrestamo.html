@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<h1 class="pull-right">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-3">
+            <h3> Listado de Préstamos</h3>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-3">
+            <a href="{% url 'ejemplares:prestamoCreate' %}" class="btn btn-dark"> Adicionar <i class="fa-solid fa-circle-plus"></i></a>
+        </div>
+    </div>
+</h1>
+{% if ejemplares %}
+    <table class="table table-danger table-hover" style="opacity:75%">
+        <thead>
+        <tr class="table-dark" >
+            <th scope="col">Id</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Ejemplar</th>
+            <th scope="col">Fecha de devolución</th>
+            <th scope="col">Fecha de préstamo</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+    
+            {% for prestamo in ejemplares %}
+                <tr>
+                    <td>{{ prestamo.id}}</td>
+                    <td>{{ prestamo.usuario}}</td>
+                    <td>{{ prestamo.ejemplar}}</td>
+                    <td>{{ prestamo.fecha_dev}}</td>
+                    <td>{{ prestamo.fecha_pres}}</td>
+                    <td>
+                    <a href="{% url 'ejemplares:prestamoEdit' prestamo.id %}" class="btn btn-dark btn-xs">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
+                    <a href="{% url 'ejemplares:prestamoEliminar' prestamo.id %}" class="btn btn-danger btn-xs">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </a>
+                    </td>
+                </tr>
+            {% endfor %}
+{% else %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-4">
+        <div class="card text-black" style="background-color:rgb(255, 116, 116)">
+            <h4 class="card-title" style="text-align: center"> ¡Lista Vacía!: No existen registros</h4>
+        </div> 
+    </div>
+</div>
+{%endif%}
+    
+    </tbody>
+  </table>
+{% endblock %}
